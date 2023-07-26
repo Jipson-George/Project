@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+     <title>PHPJabber | Car Dealer Website Template</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+               <span class="spinner-rotate"></span>
+          </div>
+     </section>
+
+
+     <!-- MENU -->
+     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+
+                    <!-- lOGO TEXT HERE -->
+                    <a href="#" class="navbar-brand">AUTO BROKER</a>
+               </div>
+
+               <!-- MENU LINKS -->
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-nav-first">
+                         <li class="active"><a href="#">Home</a></li>
+						 <li><a href="#">Cars</a></li>
+	                     <li><a href="{% url 'aboutpage' %}">About Us</a></li>
+                         <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands <span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+                                   {% for i in cat %}
+                                    <li><a href="{% url 'carpage' cat_name=i.cname %}">{{i.cname}}</a></li>
+                                   {% endfor %}
+
+                              </ul>
+                         </li>
+                         <li><a href="{% url 'contactpage' %}">Contact Us</a></li>
+                         <li class="dropdown">
+                              {% if request.session.Username %}
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{request.session.Username}}<span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+
+                                    <li><a href="{% url 'userlogout' %}">Logout</a></li>
+
+
+                              </ul>
+                         </li>
+                         {% else %}
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register/Login <span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+
+                                    <li><a href="{% url 'regpage' %}">Register</a></li>
+                                    <li><a href="{% url 'signpage' %}">Login</a></li>
+
+
+                              </ul>
+                         </li>
+                         {% endif %}
+
+                         <li><a href="{% url 'cartpage' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+</svg></a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </section>
+
+     <!-- HOME -->
+     <section id="home">
+          <div class="row">
+
+               <div class="owl-carousel owl-theme home-slider">
+
+                    <div class="item item-first">
+
+                         <div class="caption">
+
+                              <div class="container">
+
+                                   <div class="col-md-6 col-sm-12">
+
+                                        <h1>Finance your dream car.</h1>
+                                        <h3>Choose from the best pre-owned cars.</h3>
+                                        <a href="cars.html" class="section-btn btn btn-default">Browse Cars</a>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="item item-second">
+                         <div class="caption">
+                              <div class="container">
+                                   <div class="col-md-6 col-sm-12">
+                                        <h1>Planning to buy a car.</h1>
+                                        <h3>13,000 cars get sold every month. Just 3 steps.</h3>
+                                        <a href="cars.html" class="section-btn btn btn-default">Browse Cars</a>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="item item-third">
+                         <div class="caption">
+                              <div class="container">
+                                   <div class="col-md-6 col-sm-12">
+                                        <h1>Free Test drive Upto 120km</h1>
+                                        <h3></h3>
+                                        <a href="cars.html" class="section-btn btn btn-default">Browse Cars</a>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+
+     <main>
+          <section>
+               <div class="container">
+                    <div class="row">
+                         <div class="col-md-12 col-sm-12">
+                              <div class="text-center">
+                                   <h2>About us</h2>
+
+                                   <br>
+
+                                   <p class="lead">Autobroker.com is India's leading car search venture that helps users buy cars that are right for them. Its website and app carry rich automotive content such as expert reviews, detailed specs and prices, comparisons as well as videos and pictures of all car brands and models available in India..</p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </section>
+
+<section>
+               <div class="container">
+                    <div class="row">
+                         <div class="col-md-12 col-sm-12">
+                              <div class="section-title text-center">
+                                   <h2 class="text-green">Featured Brands </h2>
+                              </div>
+                         </div>
+                         {% for i in cat %}
+
+                         <div class="col-md-3 col-sm-4">
+
+                              <div class="courses-thumb courses-thumb-secondary">
+                                   <div class="courses-top">
+                                        <div class="courses-image">
+                                             <img src="{{i.cimage.url}}" class="img-responsive" alt="" width="400px" height="300px">
+                                        </div>
+                                        <div class="courses-date">
+                                             <span title="Author"><i class="fa fa-dashboard"></i> {{i.cname}}</span>
+
+                                        </div>
+                                   </div>
+
+                                   <div class="courses-detail">
+                                        <h3><a href="car-details.html">{{i.cdes}}</a></h3>
+
+                                        <p class="lead"><small><del> </del></small> <strong></strong></p>
+
+<!--                                        <p>190 hp &nbsp;&nbsp;/&nbsp;&nbsp; Petrol &nbsp;&nbsp;/&nbsp;&nbsp; 2008 &nbsp;&nbsp;/&nbsp;&nbsp; Used vehicle</p>-->
+                                   </div>
+
+                                   <div class="courses-info">
+                                        <a href="{% url 'carpage' cat_name=i.cname %}" class="section-btn btn btn-primary btn-block">View More</a>
+                                   </div>
+                              </div>
+                         </div>
+                         {% endfor %}
+
+
+                    </div>
+               </div>
+          </section>
+
+          <section>
+               <div class="container">
+                    <div class="row">
+                         <div class="col-md-12 col-sm-12">
+                              <div class="section-title text-center">
+                                   <h2>Latest Blog posts <small>Lorem ipsum dolor sit amet.</small></h2>
+                              </div>
+                         </div>
+
+                         <div class="col-md-4 col-sm-4">
+                              <div class="courses-thumb courses-thumb-secondary">
+                                   <div class="courses-top">
+                                        <div class="courses-image">
+                                             <img src="{% static 'images/blog-1-720x480.jpg' %}" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="courses-date">
+                                             <span title="Author"><i class="fa fa-user"></i> John Doe</span>
+                                             <span title="Date"><i class="fa fa-calendar"></i> 12/06/2020 10:30</span>
+                                             <span title="Views"><i class="fa fa-eye"></i> 114</span>
+                                        </div>
+                                   </div>
+
+                                   <div class="courses-detail">
+                                        <h3><a href="blog-post-details.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a></h3>
+                                   </div>
+
+                                   <div class="courses-info">
+                                        <a href="blog-post-details.html" class="section-btn btn btn-primary btn-block">Read More</a>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="col-md-4 col-sm-4">
+                              <div class="courses-thumb courses-thumb-secondary">
+                                   <div class="courses-top">
+                                        <div class="courses-image">
+                                             <img src="{% static 'images/blog-2-720x480.jpg' %}" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="courses-date">
+                                             <span title="Author"><i class="fa fa-user"></i> John Doe</span>
+                                             <span title="Date"><i class="fa fa-calendar"></i> 12/06/2020 10:30</span>
+                                             <span title="Views"><i class="fa fa-eye"></i> 114</span>
+                                        </div>
+                                   </div>
+
+                                   <div class="courses-detail">
+                                        <h3><a href="blog-post-details.html">Tempora molestiae, iste, consequatur unde sint praesentium!</a></h3>
+                                   </div>
+
+                                   <div class="courses-info">
+                                        <a href="blog-post-details.html" class="section-btn btn btn-primary btn-block">Read More</a>
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="col-md-4 col-sm-4">
+                              <div class="courses-thumb courses-thumb-secondary">
+                                   <div class="courses-top">
+                                        <div class="courses-image">
+                                             <img src="{% static 'images/blog-3-720x480.jpg' %}" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="courses-date">
+                                             <span title="Author"><i class="fa fa-user"></i> John Doe</span>
+                                             <span title="Date"><i class="fa fa-calendar"></i> 12/06/2020 10:30</span>
+                                             <span title="Views"><i class="fa fa-eye"></i> 114</span>
+                                        </div>
+                                   </div>
+
+                                   <div class="courses-detail">
+                                        <h3><a href="blog-post-details.html">A voluptas ratione, error provident distinctio, eaque id officia?</a></h3>
+                                   </div>
+
+                                   <div class="courses-info">
+                                        <a href="blog-post-details.html" class="section-btn btn btn-primary btn-block">Read More</a>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </section>
+
+
+
+          <section id="testimonial">
+               <div class="container">
+                    <div class="row">
+
+                         <div class="col-md-12 col-sm-12">
+                              <div class="section-title text-center">
+                                   <h2>Testimonials <small>from around the world</small></h2>
+                              </div>
+
+                              <div class="owl-carousel owl-theme owl-client">
+                                   <div class="col-md-4 col-sm-4">
+                                        <div class="item">
+                                             <div class="tst-image">
+                                                  <img src="{% static 'images/tst-image-1-200x216.jpg' %}" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="tst-author">
+                                                  <h4>Jackson</h4>
+                                                  <span>Shopify Developer</span>
+                                             </div>
+                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam voluptas, facilis adipisci dolorem exercitationem nemo aut error impedit repudiandae iusto.</p>
+                                             <div class="tst-rating">
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-md-4 col-sm-4">
+                                        <div class="item">
+                                             <div class="tst-image">
+                                                  <img src="{% static 'images/tst-image-2-200x216.jpg' %}" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="tst-author">
+                                                  <h4>Camila</h4>
+                                                  <span>Marketing Manager</span>
+                                             </div>
+                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente error, unde eos laborum consequatur officiis perferendis vel debitis, dolore, ipsum quibusdam culpa quisquam, reiciendis aspernatur.</p>
+                                             <div class="tst-rating">
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-md-4 col-sm-4">
+                                        <div class="item">
+                                             <div class="tst-image">
+                                                  <img src="{% static 'images/tst-image-3-200x216.jpg' %}" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="tst-author">
+                                                  <h4>Barbie</h4>
+                                                  <span>Art Director</span>
+                                             </div>
+                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit laborum minima autem, reprehenderit mollitia amet id, beatae quo sequi culpa assumenda neque a quisquam, magni.</p>
+                                             <div class="tst-rating">
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                                   <div class="col-md-4 col-sm-4">
+                                        <div class="item">
+                                             <div class="tst-image">
+                                                  <img src="{% static 'images/tst-image-4-200x216.jpg' %}" class="img-responsive" alt="">
+                                             </div>
+                                             <div class="tst-author">
+                                                  <h4>Andrio</h4>
+                                                  <span>Web Developer</span>
+                                             </div>
+                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore natus culpa laudantium sit dolores quidem at nulla, iure atque laborum! Odit tempora, enim aliquid at modi illum ducimus explicabo soluta.</p>
+                                             <div class="tst-rating">
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                                  <i class="fa fa-star"></i>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              </div>
+                        </div>
+                    </div>
+               </div>
+          </section>
+     </main>
+
+     <!-- CONTACT -->
+     <section id="contact">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                         <form id="contact-form" role="form" action="" method="post">
+                              <div class="section-title">
+                                   <h2>Contact us <small>we love conversations. let us talk!</small></h2>
+                              </div>
+
+                              <div class="col-md-12 col-sm-12">
+                                   <input type="text" class="form-control" placeholder="Enter full name" name="name" required>
+
+                                   <input type="email" class="form-control" placeholder="Enter email address" name="email" required>
+
+                                   <textarea class="form-control" rows="6" placeholder="Tell us about your message" name="message" required></textarea>
+                              </div>
+
+                              <div class="col-md-4 col-sm-12">
+                                   <input type="submit" class="form-control" name="send message" value="Send Message">
+                              </div>
+
+                         </form>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                         <div class="contact-image">
+                              <img src="{% static 'images/contact-1-600x400.jpg' %}" class="img-responsive" alt="Smiling Two Girls">
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </section>
+
+     <!-- FOOTER -->
+     <footer id="footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Headquarter</h2>
+                              </div>
+                              <address>
+                                   <p>212 Barrington Court <br>New York, ABC 10001</p>
+                              </address>
+
+                              <ul class="social-icon">
+                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                   <li><a href="#" class="fa fa-twitter"></a></li>
+                                   <li><a href="#" class="fa fa-instagram"></a></li>
+                              </ul>
+
+                              <div class="copyright-text">
+                                   <p>Copyright &copy; 2020 Company Name</p>
+                                   <p>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Contact Info</h2>
+                              </div>
+                              <address>
+                                   <p>+1 333 4040 5566</p>
+                                   <p><a href="mailto:contact@company.com">contact@company.com</a></p>
+                              </address>
+
+                              <div class="footer_menu">
+                                   <h2>Quick Links</h2>
+                                   <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="about-us.html">About Us</a></li>
+                                        <li><a href="terms.html">Terms & Conditions</a></li>
+                                        <li><a href="contact.html">Contact Us</a></li>
+                                   </ul>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                         <div class="footer-info newsletter-form">
+                              <div class="section-title">
+                                   <h2>Newsletter Signup</h2>
+                              </div>
+                              <div>
+                                   <div class="form-group">
+                                        <form action="#" method="get">
+                                             <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email" required>
+                                             <input type="submit" class="form-control" name="submit" id="form-submit" value="Send me">
+                                        </form>
+                                        <span><sup>*</sup> Please note - we do not spam your email.</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+     <script src="{% static 'js/jquery.js' %}"></script>
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+     <script src="{% static 'js/smoothscroll.js' %}"></script>
+     <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+</html>

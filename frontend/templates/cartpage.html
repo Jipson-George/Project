@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+     <title>PHPJabber | Car Dealer Website Template</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>z
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+               <span class="spinner-rotate"></span>
+          </div>
+     </section>
+
+
+     <!-- MENU -->
+     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+
+                    <!-- lOGO TEXT HERE -->
+                    <a href="#" class="navbar-brand">AUTO BROKER</a>
+               </div>
+
+               <!-- MENU LINKS -->
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-nav-first">
+                         <li class="active"><a href="{% url 'websitepage' %}">Home</a></li>
+						 <li><a href="#">Cars</a></li>
+	                     <li><a href="{% url 'aboutpage' %}">About Us</a></li>
+                         <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands <span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+                                   {% for i in cat %}
+                                    <li><a href="{% url 'carpage' cat_name=i.cname %}">{{i.cname}}</a></li>
+                                   {% endfor %}
+
+                              </ul>
+                         </li>
+                         <li><a href="{% url 'contactpage' %}">Contact Us</a></li>
+                         <li class="dropdown">
+                              {% if request.session.Username %}
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{request.session.Username}}<span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+
+                                    <li><a href="{% url 'userlogout' %}">Logout</a></li>
+
+
+                              </ul>
+                         </li>
+                         {% else %}
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Register/Login <span class="caret"></span></a>
+
+                              <ul class="dropdown-menu">
+
+                                    <li><a href="{% url 'regpage' %}">Register</a></li>
+                                    <li><a href="{% url 'signpage' %}">Login</a></li>
+
+
+                              </ul>
+                         </li>
+                         {% endif %}
+                                       <li><a href="{% url 'cartpage' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+</svg></a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </section>
+     <div class="cart-box-main ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive tb">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>Images</th>
+                                    <th>Car Model</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {%for i in cdata %}
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+									<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
+								</a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="#">
+                                    {{i.pname}}
+							    	</a>
+                                    </td>
+                                    <td>{{i.pdes}}</td>
+<!--                                    <td class="price-pr">-->
+<!--                                        <p></p>-->
+<!--                                    </td>-->
+                                    <td>{{i.pprice}} lakh</td>
+                                    <td class="quantity-box"><input type="number" size="4" value="{{i.pqu}}" min="0" step="1" class="c-input-text qty text"></td>
+                                    <td class="total-pr">
+                                        <p>{{i.ptotal}} lakh</p>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="{% url 'delitem' cartid=i.id %}">
+									<i class="fas fa-times"></i>
+								</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+<!--                                <tr>-->
+<!--                                    <td class="thumbnail-img">-->
+<!--                                        <a href="#">-->
+<!--									<img class="img-fluid" src="images/img-pro-02.jpg" alt="" />-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                    <td class="name-pr">-->
+<!--                                        <a href="#">-->
+<!--									Lorem ipsum dolor sit amet-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                    <td class="price-pr">-->
+<!--                                        <p>$ 60.0</p>-->
+<!--                                    </td>-->
+<!--                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>-->
+<!--                                    <td class="total-pr">-->
+<!--                                        <p>$ 80.0</p>-->
+<!--                                    </td>-->
+<!--                                    <td class="remove-pr">-->
+<!--                                        <a href="#">-->
+<!--									<i class="fas fa-times"></i>-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="thumbnail-img">-->
+<!--                                        <a href="#">-->
+<!--									<img class="img-fluid" src="images/img-pro-03.jpg" alt="" />-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                    <td class="name-pr">-->
+<!--                                        <a href="#">-->
+<!--									Lorem ipsum dolor sit amet-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                    <td class="price-pr">-->
+<!--                                        <p>$ 30.0</p>-->
+<!--                                    </td>-->
+<!--                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>-->
+<!--                                    <td class="total-pr">-->
+<!--                                        <p>$ 80.0</p>-->
+<!--                                    </td>-->
+<!--                                    <td class="remove-pr">-->
+<!--                                        <a href="#">-->
+<!--									<i class="fas fa-times"></i>-->
+<!--								</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+<!--            <div class="row my-5">-->
+<!--                <div class="col-lg-6 col-sm-6">-->
+<!--                    <div class="coupon-box">-->
+<!--                        <div class="input-group input-group-sm">-->
+<!--                            <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">-->
+<!--                            <div class="input-group-append">-->
+<!--                                <button class="btn btn-theme" type="button">Apply Coupon</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-6 col-sm-6">-->
+<!--                    <div class="update-box">-->
+<!--                        <input value="Update Cart" type="submit">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="row my-5">
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="order-box">
+                        <h3>Order summary</h3>
+<!--                        <div class="d-flex">-->
+<!--                            <h4>Sub Total</h4>-->
+<!--                            <div class="ml-auto font-weight-bold"> $ 130 </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex">-->
+<!--                            <h4>Discount</h4>-->
+<!--                            <div class="ml-auto font-weight-bold"> $ 40 </div>-->
+<!--                        </div>-->
+<!--                        <hr class="my-1">-->
+<!--                        <div class="d-flex">-->
+<!--                            <h4>Coupon Discount</h4>-->
+<!--                            <div class="ml-auto font-weight-bold"> $ 10 </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex">-->
+<!--                            <h4>Tax</h4>-->
+<!--                            <div class="ml-auto font-weight-bold"> $ 2 </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex">-->
+<!--                            <h4>Shipping Cost</h4>-->
+<!--                            <div class="ml-auto font-weight-bold"> Free </div>-->
+<!--                        </div>-->
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>Grand Total</h5>
+                            <div class="ml-auto h5">{{total_price}} Lakh </div>
+                        </div>
+                        <hr> </div>
+
+                                    <div class="courses-info">
+                                        <a href="{% url 'checkoutpage' %}"><button type="submit" class="section-btn btn btn-primary btn-block"  >Checkout</button></a>
+                                        </div>
+<!--                </div>-->
+<!--                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>-->
+<!--            </div>-->
+
+        </div>
+    </div>
+     <style>
+         .tb{
+         margin-top:50px;
+         margin-bottom:100px;}
+     </style>
+ <!-- FOOTER -->
+     <footer id="footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Headquarter</h2>
+                              </div>
+                              <address>
+                                   <p>212 Barrington Court <br>New York, ABC 10001</p>
+                              </address>
+
+                              <ul class="social-icon">
+                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                   <li><a href="#" class="fa fa-twitter"></a></li>
+                                   <li><a href="#" class="fa fa-instagram"></a></li>
+                              </ul>
+
+                              <div class="copyright-text">
+                                   <p>Copyright &copy; 2020 Company Name</p>
+                                   <p>Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></p>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                         <div class="footer-info">
+                              <div class="section-title">
+                                   <h2>Contact Info</h2>
+                              </div>
+                              <address>
+                                   <p>+1 333 4040 5566</p>
+                                   <p><a href="mailto:contact@company.com">contact@company.com</a></p>
+                              </address>
+
+                              <div class="footer_menu">
+                                   <h2>Quick Links</h2>
+                                   <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="about-us.html">About Us</a></li>
+                                        <li><a href="terms.html">Terms & Conditions</a></li>
+                                        <li><a href="contact.html">Contact Us</a></li>
+                                   </ul>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                         <div class="footer-info newsletter-form">
+                              <div class="section-title">
+                                   <h2>Newsletter Signup</h2>
+                              </div>
+                              <div>
+                                   <div class="form-group">
+                                        <form action="#" method="get">
+                                             <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email" required>
+                                             <input type="submit" class="form-control" name="submit" id="form-submit" value="Send me">
+                                        </form>
+                                        <span><sup>*</sup> Please note - we do not spam your email.</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+     <script src="{% static 'js/jquery.js' %}"></script>
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+     <script src="{% static 'js/smoothscroll.js' %}"></script>
+     <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+</html>
